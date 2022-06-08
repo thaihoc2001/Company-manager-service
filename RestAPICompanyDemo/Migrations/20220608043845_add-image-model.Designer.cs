@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestAPICompanyDemo.Model;
@@ -11,9 +12,10 @@ using RestAPICompanyDemo.Model;
 namespace RestAPICompanyDemo.Migrations
 {
     [DbContext(typeof(DBContextCompany))]
-    partial class DBContextCompanyModelSnapshot : ModelSnapshot
+    [Migration("20220608043845_add-image-model")]
+    partial class addimagemodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace RestAPICompanyDemo.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("departments");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("RestAPICompanyDemo.Model.Employee", b =>
@@ -81,16 +83,13 @@ namespace RestAPICompanyDemo.Migrations
 
                     b.HasIndex("CurentDepartmentId");
 
-                    b.HasIndex("ImageId")
-                        .IsUnique();
-
                     b.ToTable("employees");
                 });
 
             modelBuilder.Entity("RestAPICompanyDemo.Model.Image", b =>
                 {
-                    b.Property<string>("Imageid")
-                        .HasColumnType("text");
+                    b.Property<int>("Imageid")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -98,7 +97,7 @@ namespace RestAPICompanyDemo.Migrations
 
                     b.HasKey("Imageid");
 
-                    b.ToTable("images");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("RestAPICompanyDemo.Model.User", b =>
@@ -147,15 +146,18 @@ namespace RestAPICompanyDemo.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestAPICompanyDemo.Model.Image", "Image")
-                        .WithOne("Employee")
-                        .HasForeignKey("RestAPICompanyDemo.Model.Employee", "ImageId")
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("RestAPICompanyDemo.Model.Image", b =>
+                {
+                    b.HasOne("RestAPICompanyDemo.Model.Employee", "Employee")
+                        .WithOne("Image")
+                        .HasForeignKey("RestAPICompanyDemo.Model.Image", "Imageid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Department");
-
-                    b.Navigation("Image");
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("RestAPICompanyDemo.Model.User", b =>
@@ -176,12 +178,9 @@ namespace RestAPICompanyDemo.Migrations
 
             modelBuilder.Entity("RestAPICompanyDemo.Model.Employee", b =>
                 {
-                    b.Navigation("User");
-                });
+                    b.Navigation("Image");
 
-            modelBuilder.Entity("RestAPICompanyDemo.Model.Image", b =>
-                {
-                    b.Navigation("Employee");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

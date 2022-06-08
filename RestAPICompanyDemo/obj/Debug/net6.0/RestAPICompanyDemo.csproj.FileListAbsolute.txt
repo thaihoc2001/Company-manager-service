@@ -264,3 +264,5 @@ C:\Users\ThaiHoc\source\repos\RestAPICompanyDemo\RestAPICompanyDemo\bin\Debug\ne
 C:\Users\ThaiHoc\source\repos\RestAPICompanyDemo\RestAPICompanyDemo\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\ThaiHoc\source\repos\RestAPICompanyDemo\RestAPICompanyDemo\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\ThaiHoc\source\repos\RestAPICompanyDemo\RestAPICompanyDemo\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ThaiHoc\source\repos\RestAPICompanyDemo\RestAPICompanyDemo\bin\Debug\net6.0\CloudinaryDotNet.dll
+C:\Users\ThaiHoc\source\repos\RestAPICompanyDemo\RestAPICompanyDemo\bin\Debug\net6.0\BCrypt.Net-Next.dll

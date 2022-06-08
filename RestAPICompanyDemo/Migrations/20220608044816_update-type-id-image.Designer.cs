@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestAPICompanyDemo.Model;
@@ -11,9 +12,10 @@ using RestAPICompanyDemo.Model;
 namespace RestAPICompanyDemo.Migrations
 {
     [DbContext(typeof(DBContextCompany))]
-    partial class DBContextCompanyModelSnapshot : ModelSnapshot
+    [Migration("20220608044816_update-type-id-image")]
+    partial class updatetypeidimage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace RestAPICompanyDemo.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("departments");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("RestAPICompanyDemo.Model.Employee", b =>
@@ -98,7 +100,7 @@ namespace RestAPICompanyDemo.Migrations
 
                     b.HasKey("Imageid");
 
-                    b.ToTable("images");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("RestAPICompanyDemo.Model.User", b =>

@@ -17,13 +17,13 @@ namespace RestAPICompanyDemo.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Department>>> getAllDepartment()
         {
-            return await _context.Departments.Select(d => DepartmentToDTO(d))
+            return await _context.departments.Select(d => DepartmentToDTO(d))
                     .ToListAsync();
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Department>> getDepartmentById(int id)
         {
-            var department = await _context.Departments.FindAsync(id);
+            var department = await _context.departments.FindAsync(id);
             if (department == null)
             {
                 return NotFound();
@@ -40,7 +40,7 @@ namespace RestAPICompanyDemo.Controllers
                 DepartmentDescription = department.DepartmentDescription,
                 Employees = null
             };
-            _context.Departments.Add(newDepartment);
+            _context.departments.Add(newDepartment);
 
             await _context.SaveChangesAsync();
 
@@ -54,7 +54,7 @@ namespace RestAPICompanyDemo.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Department>> UpdateDepartment(int id, Department department)
         {
-            Department findDepartment = await _context.Departments.FindAsync(id);
+            Department findDepartment = await _context.departments.FindAsync(id);
             if (findDepartment == null)
             {
                 return NotFound();
@@ -62,7 +62,7 @@ namespace RestAPICompanyDemo.Controllers
             findDepartment.DepartmentName = department.DepartmentName;
             findDepartment.DepartmentDescription = department.DepartmentDescription;
 
-            _context.Departments.Update(findDepartment);
+            _context.departments.Update(findDepartment);
 
             await _context.SaveChangesAsync();
 
@@ -76,12 +76,12 @@ namespace RestAPICompanyDemo.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
-            Department findDepartment = await _context.Departments.FindAsync(id);
+            Department findDepartment = await _context.departments.FindAsync(id);
             if (findDepartment == null)
             {
                 return NotFound();
             }
-            _context.Departments.Remove(findDepartment);
+            _context.departments.Remove(findDepartment);
             await _context.SaveChangesAsync();
 
             return NoContent();

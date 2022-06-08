@@ -5,6 +5,7 @@ using RestAPICompanyDemo.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using BC = BCrypt.Net.BCrypt;
 
 namespace RestAPICompanyDemo.Controllers
 {
@@ -62,7 +63,7 @@ namespace RestAPICompanyDemo.Controllers
                 CreatedDate = DateTime.UtcNow,
                 CurentEmployeeId = user.CurentEmployeeId,
                 Email = user.Email,
-                Password = user.Password,
+                Password = BC.HashPassword(user.Password),
                 Role = user.Role,
                 UserId = user.UserId,
             };
@@ -73,7 +74,12 @@ namespace RestAPICompanyDemo.Controllers
         }
         private async Task<User> GetUser(string email, string password)
         {
-            return await _context.users.FirstOrDefaultAsync(u => u.UserName == email && u.Password == password);
+            var user = await _context.users.FirstOrDefaultAsync(u => u.UserName == email);
+            if(user == null || !BC.Verify(password, user.Password))
+            {
+                return null;
+            }
+            return user;
         }
     }
 }
